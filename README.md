@@ -12,7 +12,7 @@ go get github.com/tetsuzawa/envssm
 ### 1. Prepare .env file
 
 ```terminal
-$ tree -a                                                                                 Mon Mar  9 22:00:38 2020
+$ tree -a
 .
 └── .env
 ```
@@ -31,7 +31,7 @@ $ envssm
 ### 3. Check the output file
 
 ```terminal
-$ tree -a                                                                                 Mon Mar  9 22:00:38 2020
+$ tree -a
 .
 ├── .env
 ├── ssm.tf              # generated
