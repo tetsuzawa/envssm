@@ -40,6 +40,8 @@ $ tree -a
 ```
 
 ```hcl-terraform:ssm.tf
+# ssm.tf
+
 resource "aws_ssm_parameter" "db_user" {
   name        = "DB_USER"
   description = ""
@@ -56,6 +58,8 @@ resource "aws_ssm_parameter" "db_password" {
 ```
 
 ```hcl-terraform:variables.tf
+# variables.tf
+
 variable "db_user" {
   type        = string
   description = ""
@@ -70,6 +74,8 @@ variable "db_password" {
 ```
 
 ```hcl-terraform:terraform.tfvars
+# terraform.tfvars
+
 db_user     = "user"
 db_password = "password"
 ```
