@@ -39,7 +39,7 @@ func (p *Parameter) Build(hasPlaceHolder bool) {
 				`resource "aws_ssm_parameter" "%s" {
   name           = "%s"
   type           = "SecureString"
-  value          = "var.%s"
+  value          = var.%s
 }
 
 `, strings.ToLower(k), k, strings.ToLower(k)))
