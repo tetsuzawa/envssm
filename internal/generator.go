@@ -6,20 +6,21 @@ import (
 	"strings"
 )
 
-func (p *Parameter) Build() {
-	for k, v := range p.envMap {
-		p.SSMBuf.WriteString(fmt.Sprintf(
-			`resource "aws_ssm_parameter" "%s" {
+func (p *Parameter) Build(hasPlaceHolder bool) {
+	if hasPlaceHolder {
+		for k, v := range p.envMap {
+			p.SSMBuf.WriteString(fmt.Sprintf(
+				`resource "aws_ssm_parameter" "%s" {
   name           = "%s"
   description    = ""
   type           = "SecureString"
-  value          = "var.%s"
+  value          = var.%s
 }
 
 `, strings.ToLower(k), k, strings.ToLower(k)))
 
-		p.ValBuf.WriteString(fmt.Sprintf(
-			`variable "%s" {
+			p.ValBuf.WriteString(fmt.Sprintf(
+				`variable "%s" {
   type           = string
   description    = ""
   default        = ""
@@ -27,10 +28,34 @@ func (p *Parameter) Build() {
 
 `, strings.ToLower(k)))
 
-		p.TFVarsBuf.WriteString(fmt.Sprintf(
-			`%s = "%s"
+			p.TFVarsBuf.WriteString(fmt.Sprintf(
+				`%s = "%s"
 `,
-			strings.ToLower(k), v))
+				strings.ToLower(k), v))
+		}
+	} else {
+		for k, v := range p.envMap {
+			p.SSMBuf.WriteString(fmt.Sprintf(
+				`resource "aws_ssm_parameter" "%s" {
+  name           = "%s"
+  type           = "SecureString"
+  value          = "var.%s"
+}
+
+`, strings.ToLower(k), k, strings.ToLower(k)))
+
+			p.ValBuf.WriteString(fmt.Sprintf(
+				`variable "%s" {
+  type           = string
+}
+
+`, strings.ToLower(k)))
+
+			p.TFVarsBuf.WriteString(fmt.Sprintf(
+				`%s = "%s"
+`,
+				strings.ToLower(k), v))
+		}
 	}
 }
 
