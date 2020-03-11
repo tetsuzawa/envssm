@@ -1,4 +1,5 @@
 # envssm
+
 envssm is a Terraform file generator for AWS SSM written in Go.
 
 ## Installation
@@ -77,7 +78,7 @@ db_password = "password"
 ## Options
 
 - -f: path of environment variables file
+- -d: generate place holders (eg. `description = ""`)
 - -so: path of output SSM terraform file
 - -vo: path of output variables terraform file
 - -to: path of output tfvars terraform file
-
