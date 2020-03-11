@@ -1,2 +1,2 @@
-db_user     = "user"
 db_password = "password"
+db_user     = "user"

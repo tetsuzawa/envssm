@@ -9,7 +9,7 @@ import (
 func createFile(path string) (*os.File, error) {
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
 		sc := bufio.NewScanner(os.Stdin)
-		fmt.Printf("%s will be overwritten. continue? [Y/n]: ", path)
+		fmt.Printf("overwrite %s? (y/n [y]): ", path)
 		sc.Scan()
 		if sc.Text() != "Y" && sc.Text() != "" {
 			fmt.Println("Aborting...")

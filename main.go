@@ -23,6 +23,7 @@ func run() error {
 		SSMPath    = flag.String("so", "ssm.tf", "path of output SSM terraform file")
 		ValPath    = flag.String("vo", "variable.tf", "path of output variables terraform file")
 		TFVarsPath = flag.String("to", "terraform.tfvars", "path of output tfvars terraform file")
+		hasPlaceHolder = flag.Bool("p", false, "generate description and default place holder")
 	)
 	flag.Parse()
 
@@ -31,7 +32,7 @@ func run() error {
 		return fmt.Errorf("ReadEnv: %w", err)
 	}
 	p := internal.NewParameter(envMap)
-	p.Build()
+	p.Build(*hasPlaceHolder)
 
 	err = p.Write(*SSMPath, *ValPath, *TFVarsPath)
 	if err != nil {
